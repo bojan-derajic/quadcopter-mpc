@@ -82,14 +82,21 @@ MPC_lin.Model.Nominal.U = u0;
 MPC_lin.PredictionHorizon = 60;
 MPC_lin.ControlHorizon = 5;
 
-E = [S^(-1); -S^(-1)];
-F = [];
-G = [(Ub*Kv)^(2)*ones(4, 1); zeros(4, 1)];
-V = zeros(8, 1);
+E = []
 
-setconstraint(MPC_lin, E, F, G, V);
+setconstraint(MPC_lin, 
+
+% MPC_lin.MV(1).Min = 0;
+% MPC_lin.MV(2).Min = -0.2*Ub*Kv*cT*d;
+% MPC_lin.MV(3).Min = -0.2*Ub*Kv*cT*d;
+% MPC_lin.MV(4).Min = -2*Ub*Kv*cM;
 
 MPC_lin.OV(3).Min = 0;
+
+% MPC_lin.MV(1).Max = 4*Ub*Kv*cT;
+% MPC_lin.MV(2).Max = 0.2*Ub*Kv*cT*d;
+% MPC_lin.MV(3).Max = 0.2*Ub*Kv*cT*d;
+% MPC_lin.MV(4).Max = 2*Ub*Kv*cM;
 
 MPC_lin.W.MV(1) = 1;
 MPC_lin.W.MV(2) = 100;
@@ -103,7 +110,7 @@ MPC_lin.W.OV(4) = 1;
  
 get(MPC_lin);
 
-% Linear MPC test
-T = 56;
-r = [1, -2, 4, -0.2];
+%%
+T = 51;
+r = [1, -2, 4, -0.1];
 sim(MPC_lin, T, r)
