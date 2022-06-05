@@ -8,7 +8,7 @@ Omega_b = 0;         % pomjeraj (bias) linearizovane karakteristike motora
 Kv = 980;         % nagib linearizovane karakteristike motora
 cT = 3.13*1e-4;      % konstanta sile potiska
 cM = 7.5*1e-6;    % konstanta momenta reakcije
-Tm = 0.02;            % vremenska konstanta modela motora
+Tm = 0.01;            % vremenska konstanta modela motora
 d = 0.225;               % udaljenost ose rotacije motora od centra mase
 m = 0.6;
 

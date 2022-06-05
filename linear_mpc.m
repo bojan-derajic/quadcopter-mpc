@@ -79,7 +79,7 @@ MPC_lin = mpc(quadcopter_lin, Ts);
 MPC_lin.Model.Nominal.X = x0;
 MPC_lin.Model.Nominal.U = u0;
 
-MPC_lin.PredictionHorizon = 50;
+MPC_lin.PredictionHorizon = 60;
 MPC_lin.ControlHorizon = 5;
 
 MPC_lin.MV(1).Min = 0;
@@ -93,11 +93,21 @@ MPC_lin.MV(1).Max = 4*Ub*Kv*cT;
 MPC_lin.MV(2).Max = 0.2*Ub*Kv*cT*d;
 MPC_lin.MV(3).Max = 0.2*Ub*Kv*cT*d;
 MPC_lin.MV(4).Max = 2*Ub*Kv*cM;
+
+MPC_lin.W.MV(1) = 1;
+MPC_lin.W.MV(2) = 100;
+MPC_lin.W.MV(3) = 100;
+MPC_lin.W.MV(4) = 100;
+
+MPC_lin.W.OV(1) = 1;
+MPC_lin.W.OV(2) = 1;
+MPC_lin.W.OV(3) = 1000;
+MPC_lin.W.OV(4) = 1;
  
 get(MPC_lin);
 
 %%
-T = 51;
+T = 61;
 r = [repmat([1 -2 5 -0.1], 31, 1);
-     1, -2, 4, -0.1];
+     1, -2, 0, -0.1];
 sim(MPC_lin, T, r)
