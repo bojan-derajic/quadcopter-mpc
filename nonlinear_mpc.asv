@@ -17,7 +17,7 @@ MPC_nonlin.ControlHorizon = Nc;
 
 MPC_nonlin.Model.NumberOfParameters = 4;
 MPC_nonlin.Model.StateFcn = @state_fcn;
-MPC_nonlin.Model.OutputFcn = @(x, u, m, J, Jpr, S) [x(1); x(2); x(3); x(6)];
+MPC_nonlin.Model.OutputFcn = @output_fcn;
 
 validateFcns(MPC_nonlin, rand(nx, 1), rand(nu, 1), [], {m, J, JR, S});
 %%
@@ -25,7 +25,7 @@ E = [S^(-1); -S^(-1)];
 G = [(Ub*Kv)^(2)*ones(4, 1); zeros(4, 1)];
 
 MPC_nonlin.Optimization.CustomIneqConFcn = @(X, U, e, data, m, J, Jpr, S) ...
-    [reshape(E*U(1:Np, :)', [], 1) - repmat(G, Np, 1)];
+    [reshape(E*U(1:p, :)', [], 1) - repmat(G, p)];
 
 MPC_lin.OV(3).Min = 0;
 
