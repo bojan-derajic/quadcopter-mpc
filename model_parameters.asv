@@ -57,11 +57,7 @@ f(1:3) = v;
 f(4:6) = [0; 0; -g] + 1/m*R*[0; 0; Ft];
 f(7:9) = T*omega;
 f(10:12) = J^(-1)*(-cross(omega, J*omega) + [Mx; My; Mz]);
-
-f = simplify(transpose(f));
+f = simplify(f);
 
 A = jacobian(f, X);
-B = jacobian(f, U);
-
-matlabFunction(f, 'File', 'state_fcn', 'Vars', {X, U});
-matlabFunction(A, B, 'File', 'state_jacob_fcn', 'Vars', {X, U});
+B = jacobian()

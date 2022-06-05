@@ -16,6 +16,7 @@ MPC_nonlin.PredictionHorizon = Np;
 MPC_nonlin.ControlHorizon = Nc;
 
 MPC_nonlin.Model.StateFcn = @state_fcn;
+MPC_nonlin.Jacobian.StateFcn = @state_jacob_fcn;
 MPC_nonlin.Model.OutputFcn = @(x, u) [x(1); x(2); x(3); x(9)];
 
 E = [S^(-1); -S^(-1)];
@@ -24,7 +25,7 @@ G = [(Ub*Kv)^(2)*ones(4, 1); zeros(4, 1)];
 MPC_nonlin.Optimization.CustomIneqConFcn = @(X, U, e, data) ...
     [reshape(E*U(1:Np, :)', [], 1) - repmat(G, Np, 1)];
 
-%MPC_lin.OV(3).Min = 0;
+MPC_lin.OV(3).Min = 0;
 
 % MPC_lin.W.MV(1) = 1;
 % MPC_lin.W.MV(2) = 100;
