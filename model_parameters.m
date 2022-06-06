@@ -12,13 +12,13 @@ Tm = 0.02;           % motor time constant
 d = 0.225;           % distance netween frame COM and rotor axis
 m = 0.6;             % mass
 
-JR = 1e-5;           % proppeler moment of inertia   
+JR = 1e-5;           % propeller moment of inertia   
 Jxx = 0.0075;
 Jyy = 0.0075;
 Jzz = 0.0075;
 J = diag([Jxx, Jyy, Jzz]);  % frame inertia matrix
 
-S = [cT cT cT cT;
-     d*cT*sqrt(2)/2 -d*cT*sqrt(2)/2 -d*cT*sqrt(2)/2 d*cT*sqrt(2)/2;
-     -d*cT*sqrt(2)/2 -d*cT*sqrt(2)/2 d*cT*sqrt(2)/2 d*cT*sqrt(2)/2;
-     -cM cM -cM cM];
+S = [     cT               cT              cT               cT
+     d*cT*sqrt(2)/2  -d*cT*sqrt(2)/2 -d*cT*sqrt(2)/2  d*cT*sqrt(2)/2
+     -d*cT*sqrt(2)/2 -d*cT*sqrt(2)/2  d*cT*sqrt(2)/2  d*cT*sqrt(2)/2
+         -cM               cM             -cM               cM];

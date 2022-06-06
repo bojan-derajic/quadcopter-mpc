@@ -8,7 +8,7 @@ y = out.Y.signals.values(:, 2);
 z = out.Y.signals.values(:, 3);
 yaw = out.Y.signals.values(:, 4);
 
-if size(out.R.signals.values, 1) == 4
+if size(out.R.signals.values, 1) == 1
     out.R.signals.values = squeeze(out.R.signals.values)';
 end
 
@@ -26,7 +26,6 @@ axis('equal');
 xlabel('x');
 ylabel('y');
 zlabel('z');
-title('Linear MPC');
 legend({'Reference', 'True position'})
 
 figure('Position', [10 50 1300 550]);
@@ -66,3 +65,12 @@ plot(out.Y.time, yaw, 'b', 'linewidth', 1);
 xlabel('t [s]');
 ylabel('yaw [rad]');
 legend({'Reference', 'True angle'}, 'location', 'northwest');
+
+E = out.R.signals.values - out.Y.signals.values;
+E = sqrt(sum(E.^(2), 2));
+
+figure();
+plot(out.R.time, E, 'linewidth', 1);
+grid on;
+xlabel('t [s]');
+ylabel('||e||');

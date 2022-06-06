@@ -10,7 +10,7 @@ MPC_nonlin = nlmpc(nx, ny, nu);
 
 Ts = 0.1;
 Np = 25;
-Nc = 3;
+Nc = 2;
 
 MPC_nonlin.Ts = Ts;
 MPC_nonlin.PredictionHorizon = Np;
