@@ -8,6 +8,10 @@ y = out.Y.signals.values(:, 2);
 z = out.Y.signals.values(:, 3);
 yaw = out.Y.signals.values(:, 4);
 
+if size(out.R.signals.values, 1) == 4
+    out.R.signals.values = squeeze(out.R.signals.values)';
+end
+
 r_x = out.R.signals.values(:, 1);
 r_y = out.R.signals.values(:, 2);
 r_z = out.R.signals.values(:, 3);
