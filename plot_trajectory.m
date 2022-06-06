@@ -18,6 +18,7 @@ plot3(r_x, r_y, r_z, 'r--', 'linewidth', 1.5);
 hold on;
 grid on;
 plot3(x, y, z, 'b', 'linewidth', 2);
+axis('equal');
 xlabel('x');
 ylabel('y');
 zlabel('z');

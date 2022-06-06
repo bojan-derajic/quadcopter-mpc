@@ -9,7 +9,7 @@ nu = 4;
 MPC_nonlin = nlmpc(nx, ny, nu);
 
 Ts = 0.1;
-Np = 10;
+Np = 25;
 Nc = 2;
 
 MPC_nonlin.Ts = Ts;
@@ -30,13 +30,13 @@ MPC_nonlin.Optimization.CustomIneqConFcn = @(X, U, e, data) ...
 MPC_lin.OV(3).Min = 0;
 
 MPC_lin.W.MV(1) = 1;
-MPC_lin.W.MV(2) = 100;
-MPC_lin.W.MV(3) = 100;
-MPC_lin.W.MV(4) = 100;
+MPC_lin.W.MV(2) = 10;
+MPC_lin.W.MV(3) = 10;
+MPC_lin.W.MV(4) = 10;
 
 MPC_lin.W.OV(1) = 1;
 MPC_lin.W.OV(2) = 1;
-MPC_lin.W.OV(3) = 1000;
+MPC_lin.W.OV(3) = 100;
 MPC_lin.W.OV(4) = 1;
 
 validateFcns(MPC_nonlin, zeros(nx, 1), [m*g; 0; 0; 0]);
