@@ -1,3 +1,5 @@
+close all; clc;
+
 Ft = out.U.signals.values(:, 1);
 Mx = out.U.signals.values(:, 2);
 My = out.U.signals.values(:, 3);
@@ -98,5 +100,5 @@ disp('Mean Squared Error:')
 disp(MSE);
 
 MP = mean(out.U.signals.values.^(2), 1);
-disp('Mear Control Signal Effort');
+disp('Mean Control Signal Effort');
 disp(MP)
