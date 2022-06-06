@@ -1,0 +1,50 @@
+model_parameters
+
+syms x y z xd yd zd phi theta psi wx wy wz
+syms Ft Mx My Mz
+
+p = [x; y; z];
+v = [xd; yd; zd];
+eta = [phi; theta; psi];
+omega = [wx; wy; wz];
+
+X = [p; v; eta; omega];
+U = [Ft; Mx; My; Mz];
+
+Rx = [1     0         0
+      0  cos(phi)  -sin(phi)
+      0  sin(phi)   cos(phi)];
+  
+Ry = [cos(theta)  0   sin(theta)
+          0       1       0
+      -sin(theta) 0   cos(theta)];
+
+Rz = [cos(psi)  -sin(psi)  0
+      sin(psi)   cos(psi)  0
+         0          0      1];
+  
+R = Rz*Ry*Rx;
+
+T = [1  tan(theta)*sin(phi)  tan(theta)*cos(phi)
+     0       cos(phi)             -sin(phi)
+     0  sin(phi)/cos(theta)  cos(phi)/cos(theta)];
+ 
+Omega = sqrt(S^(-1)*U);
+
+Mgr = cross(omega, [0; 0; JR*(Omega(1)-Omega(2)+Omega(3)-Omega(4))]);
+
+f(1:3) = v;
+f(4:6) = [0; 0; -g] + 1/m*R*[0; 0; Ft];
+f(7:9) = T*omega;
+f(10:12) = J^(-1)*(-cross(omega, J*omega) + [Mx; My; Mz]);
+
+f = vpa(simplify(transpose(f)), 8);
+h = vpa(simplify([p; eta(3)]));
+
+A = vpa(jacobian(f, X), 8);
+B = vpa(jacobian(f, U), 8);
+
+matlabFunction(f, 'File', 'state_fcn', 'Vars', {X, U});
+matlabFunction(A, B, 'File', 'state_jacob_fcn', 'Vars', {X, U});
+
+clear
