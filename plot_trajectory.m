@@ -17,7 +17,7 @@ r_y = out.R.signals.values(:, 2);
 r_z = out.R.signals.values(:, 3);
 r_yaw = out.R.signals.values(:, 4);
 
-figure('Position', [10 50 750 500]);
+figure('Position', [10 50 650 500]);
 plot3(r_x, r_y, r_z, 'r--', 'linewidth', 1.5);
 hold on;
 grid on;
@@ -28,9 +28,9 @@ ylabel('y');
 zlabel('z');
 legend({'Reference', 'True position'})
 
-figure('Position', [10 50 1300 550]);
+figure('Position', [10 0 500 1000]);
 
-subplot(2, 2, 1);
+subplot(4, 1, 1);
 plot(out.R.time, r_x, 'r--', 'linewidth', 1);
 hold on;
 grid on;
@@ -39,7 +39,7 @@ xlabel('t [s]');
 ylabel('x [m]');
 legend({'Reference', 'True Position'}, 'location', 'northwest');
 
-subplot(2, 2, 2);
+subplot(4, 1, 2);
 plot(out.R.time, r_y, 'r--', 'linewidth', 1);
 hold on;
 grid on;
@@ -48,7 +48,7 @@ xlabel('t [s]');
 ylabel('y [m]');
 legend({'Reference', 'True Position'}, 'location', 'northwest');
 
-subplot(2, 2, 3);
+subplot(4, 1, 3);
 plot(out.R.time, r_z, 'r--', 'linewidth', 1);
 hold on;
 grid on;
@@ -57,7 +57,7 @@ xlabel('t [s]');
 ylabel('z [m]');
 legend({'Reference', 'True Position'}, 'location', 'southwest');
 
-subplot(2, 2, 4);
+subplot(4, 1, 4);
 plot(out.R.time, r_yaw, 'r--', 'linewidth', 1);
 hold on;
 grid on;
@@ -66,11 +66,37 @@ xlabel('t [s]');
 ylabel('yaw [rad]');
 legend({'Reference', 'True angle'}, 'location', 'northwest');
 
-E = out.R.signals.values - out.Y.signals.values;
-E = sqrt(sum(E.^(2), 2));
+figure('Position', [10 0 500 1000]);
 
-figure();
-plot(out.R.time, E, 'linewidth', 1);
+subplot(4, 1, 1);
+plot(out.U.time, Ft, 'b', 'linewidth', 1);
 grid on;
 xlabel('t [s]');
-ylabel('||e||');
+ylabel('Ft [N]');
+
+subplot(4, 1, 2);
+plot(out.U.time, Mx, 'b', 'linewidth', 1);
+grid on;
+xlabel('t [s]');
+ylabel('Mx [Nm]');
+
+subplot(4, 1, 3);
+plot(out.U.time, My, 'b', 'linewidth', 1);
+grid on;
+xlabel('t [s]');
+ylabel('My [Nm]');
+
+subplot(4, 1, 4);
+plot(out.U.time, Mz, 'b', 'linewidth', 1);
+grid on;
+xlabel('t [s]');
+ylabel('Mz [Nm]');
+
+E = out.R.signals.values - out.Y.signals.values;
+MSE = mean(E.^(2), 1);
+disp('Mean Squared Error:')
+disp(MSE);
+
+MP = mean(out.U.signals.values.^(2), 1);
+disp('Mear Control Signal Effort');
+disp(MP)
