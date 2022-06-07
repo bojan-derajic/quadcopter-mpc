@@ -36,7 +36,7 @@ MPC_lin.W.MV(4) = 100;
 
 MPC_lin.W.OV(1) = 1;
 MPC_lin.W.OV(2) = 1;
-MPC_lin.W.OV(3) = 1000;
+MPC_lin.W.OV(3) = 1;
 MPC_lin.W.OV(4) = 1;
 
 validateFcns(MPC_nonlin, zeros(nx, 1), [m*g; 0; 0; 0]);
