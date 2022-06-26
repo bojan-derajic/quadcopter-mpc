@@ -28,10 +28,6 @@ R = Rz*Ry*Rx;
 T = [1  tan(theta)*sin(phi)  tan(theta)*cos(phi)
      0       cos(phi)             -sin(phi)
      0  sin(phi)/cos(theta)  cos(phi)/cos(theta)];
- 
-Omega = sqrt(S^(-1)*U);
-
-Mgr = cross(omega, [0; 0; JR*(Omega(1)-Omega(2)+Omega(3)-Omega(4))]);
 
 f(1:3) = v;
 f(4:6) = [0; 0; -g] + 1/m*R*[0; 0; Ft];

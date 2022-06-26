@@ -27,16 +27,21 @@ G = [(Ub*Kv)^(2)*ones(4, 1); zeros(4, 1)];
 MPC_nonlin.Optimization.CustomIneqConFcn = @(X, U, e, data) ...
     [reshape(E*U(1:Np, :)', [], 1) - repmat(G, Np, 1)];
 
-MPC_lin.OV(3).Min = 0;
+MPC_nonlin.OutputVariables(3).Min = 0;
 
-MPC_lin.W.MV(1) = 1;
-MPC_lin.W.MV(2) = 100;
-MPC_lin.W.MV(3) = 100;
-MPC_lin.W.MV(4) = 100;
+MPC_nonlin.W.ManipulatedVariables(1) = 0.01;
+MPC_nonlin.W.ManipulatedVariables(2) = 0.1;
+MPC_nonlin.W.ManipulatedVariables(3) = 0.1;
+MPC_nonlin.W.ManipulatedVariables(4) = 1;
 
-MPC_lin.W.OV(1) = 1;
-MPC_lin.W.OV(2) = 1;
-MPC_lin.W.OV(3) = 1;
-MPC_lin.W.OV(4) = 1;
+MPC_nonlin.W.ManipulatedVariablesRate(1) = 0;
+MPC_nonlin.W.ManipulatedVariablesRate(2) = 0;
+MPC_nonlin.W.ManipulatedVariablesRate(3) = 0;
+MPC_nonlin.W.ManipulatedVariablesRate(4) = 0;
+
+MPC_nonlin.W.OutputVariables(1) = 1;
+MPC_nonlin.W.OutputVariables(2) = 1;
+MPC_nonlin.W.OutputVariables(3) = 1.5;
+MPC_nonlin.W.OutputVariables(4) = 1;
 
 validateFcns(MPC_nonlin, zeros(nx, 1), [m*g; 0; 0; 0]);
